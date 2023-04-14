@@ -29,9 +29,10 @@ class CronogramaController extends Controller
         return view('cronogramas.index', compact('cronogramas', 'proyectos'));
     }
 
-    public function fetchCronograma()
+    public function fetchCronograma($id)
     {
-        $cronogramas = Cronograma::all();
+        // $cronogramas = Cronograma::all();
+        $cronogramas = Cronograma::where('id_proyecto', $id)->get(); /// ******************************************filtrar por id_proyecto***********************************
         return response()->json([
             'cronogramas'=>$cronogramas,
         ]);

@@ -18,6 +18,8 @@
                 </div>
                 <div class="modal-body">
 
+                    <input type="hidden" id="id_proyecto" class="id_proyecto" value="{{ $proyecto->id }}" />
+
                     <ul id="save_msgList"></ul>
 
                     <div class="row g-2">
@@ -91,6 +93,7 @@
                     <ul id="update_msgList"></ul>
 
                     <input type="hidden" id="proye_id" />
+                    <input type="hidden" id="id_proyecto" id="id_proyecto" value="{{ $proyecto->id }}" />
 
                     <div class="row g-2">
                         <div class="col-md form-floating mb-3">
@@ -291,7 +294,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "/fetch-cronogramas",
+                    url: "/fetch-cronogramas/{{ $proyecto->id}}",
                     dataType: "json",
                     success: function(response) {
                         // console.log(response);
@@ -377,7 +380,7 @@
                     'fecha_inicio': $('.fecha_inicio').val(),
                     'fecha_final': $('.fecha_final').val(),
                     'face': $('.face').val(),
-                    'id_proyecto': $('.id_proyecto').val(),
+                    'id_proyecto': $('.id_proyecto').val(),//, input hiiden con el id del proyecto
                     'estado': $('.estado').val(),
                 }
 
@@ -386,6 +389,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
+                console.log(data);
 
                 $.ajax({
                     type: "POST",
@@ -408,7 +412,7 @@
                             $('#AddCronogramaModal').find('input').val('');
                             $('.add_cronograma').text('Save');
                             $('#AddCronogramaModal').modal('hide');
-                            fetchProyecto();
+                            fetchCronograma();
                             toastr.success('La Cronograma se Creo Exitosamente', 'Success');
                         }
                     }
@@ -504,7 +508,7 @@
                              $('#editModal').find('input').val('');
                              $('.update_proyecto').text('Update');
                              $('#editModal').modal('hide');
-                             fetchProyecto();
+                             fetchCronograma();
                              toastr.success('El Registro se Actualizo Exitosamente', 'Success');
                          }
                      }
@@ -546,7 +550,7 @@
                              $('#success_message').text(response.message);
                              $('.delete_proyecto').text('Yes Delete');
                              $('#DeleteModal').modal('hide');
-                             fetchProyecto();
+                             fetchCronograma();
                              toastr.success('El Registro se Elimino exitosamente', 'Success');
                          }
                      }

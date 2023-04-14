@@ -92,7 +92,7 @@ Route::group(['middleware' => ['auth']], function(){
 
     ///////////////////////////Rutas para Cronograma inicio//////////////////////////////////
     Route::resource('cronogramas', CronogramaController::class);
-    Route::get('fetch-cronogramas', [CronogramaController::class, 'fetchCronograma']);
+    Route::get('fetch-cronogramas/{id}', [CronogramaController::class, 'fetchCronograma']);
     Route::get('edit-cronograma/{id}', [CronogramaController::class, 'edit']);
     Route::put('update-cronograma/{id}', [CronogramaController::class, 'update']);
     Route::delete('delete-cronograma/{id}', [CronogramaController::class, 'destroy']);
